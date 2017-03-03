@@ -71,7 +71,7 @@ module.exports = {
       }).exec(function (error, usuarioEncontrado) {
         if (error) return res.serverError()
         return res.view('Usuario/actualizarUsuario', {
-          title: 'Editar usuario - ' + usuarioEncontrado.nombre,
+          title: 'Editar Usuario: ' + usuarioEncontrado.nombre,
           usuario: usuarioEncontrado
         })
       });
@@ -81,6 +81,30 @@ module.exports = {
         title: 'Error',
         error: {
           descripcion: 'No existe el ID del Usuario'
+        }
+      });
+    }
+  },
+
+  actualizarBorracheraRuta: function (req, res) {
+
+    var parametros = req.allParams();
+    if (parametros.id) {
+      Borrachera.findOne({
+        id: parametros.id
+      }).exec(function (error, borracheraEncontrada) {
+        if (error) return res.serverError()
+        return res.view('Borrachera/actualizarBorrachera', {
+          title: 'Editar Borrachera: ' + borracheraEncontrada.nombre,
+          borrachera: borracheraEncontrada
+        })
+      });
+
+    } else {
+      return res.view('error', {
+        title: 'Error',
+        error: {
+          descripcion: 'No existe el ID de la Borrachera'
         }
       });
     }

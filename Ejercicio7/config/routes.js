@@ -39,7 +39,8 @@ module.exports.routes = {
   'get /ListarUsuario': 'RutasController.listarUsuarios',
   'get /actualizarUsuarioRuta': 'RutasController.actualizarUsuarioRuta',
   'get /CrearBorrachera': 'RutasController.crearBorrachera',
-  'get /ListarBorrachera': 'RutasController.listarBorracheras'
+  'get /ListarBorrachera': 'RutasController.listarBorracheras',
+  'get /actualizarBorracheraRuta': 'RutasController.actualizarBorracheraRuta'
 
   /***************************************************************************
    *                                                                          *
