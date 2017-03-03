@@ -14,11 +14,11 @@ module.exports = {
             required: true
         },
 
-        LatitudDondeEmpezo: {
+        latitud: {
             type: 'integer',
             required: true
         },
-        LongitudDondeEmpezo: {
+        longitud: {
             type: 'integer',
             required: true
         },
