@@ -19,9 +19,18 @@ module.exports = {
       }
     });
   },
+  
   crearUsuario: function (req, res) {
-    return res.view('Usuario/crearUsuario');
+    Borrachera.find().exec(function (error, borracheraEncontradas) {
+      if (error) return res.serverError();
+      return res.view('Usuario/crearUsuario', {
+        borracheras: borracheraEncontradas
+      });
+    });
+
   },
+  
+  
   crearBorrachera: function (req, res) {
     return res.view('Borrachera/crearBorrachera');
   },
@@ -34,11 +43,11 @@ module.exports = {
             error: {
               desripcion: "Hubo un problema listando los Usuarios",
               rawError: errorIndefinido,
-              url: "/ListarUsuarios"
+              url: "/listarUsuarios"
             }
           });
         }
-        res.view('Usuario/ListarUsuario', {
+        res.view('Usuario/listarUsuario', {
           usuarios: usuariosEncontrados
         });
       })
@@ -52,11 +61,11 @@ module.exports = {
             error: {
               desripcion: "Hubo un problema listando las borracheras",
               rawError: errorIndefinido,
-              url: "/ListarBorracheras"
+              url: "/listarBorracheras"
             }
           });
         }
-        res.view('Borrachera/ListarBorrachera', {
+        res.view('Borrachera/listarBorrachera', {
           borracheras: borracherasEncontradas
         });
       })

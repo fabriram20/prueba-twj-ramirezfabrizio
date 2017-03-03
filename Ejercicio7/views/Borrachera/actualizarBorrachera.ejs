@@ -3,7 +3,7 @@
 <p>Actualiza los datos del Usuario</p>
 <div class="row">
   <div class="col-sm-8">
-    <form action="Usuario/actualizarUsuario" method="post">
+    <form action="Borrachera/actualizarBorrachera" method="post">
 
       <div class="form-group">
         <label>Motivo</label>
@@ -20,6 +20,7 @@
         <input type="number" class="form-control" placeholder="Ingrese Longitud donde Empezo" name="longitud" min="0" max="90">
       </div>
 
+      <input type="hidden" name="id" value="<%=borrachera.id%>">
       <button type="submit" class="btn btn-success">Actualizar Borrachera</button>
 
     </form>

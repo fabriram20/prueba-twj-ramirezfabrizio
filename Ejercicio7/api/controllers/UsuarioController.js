@@ -18,7 +18,8 @@ module.exports = {
         var usuarioCrear = {
           nombre: parametros.nombre,
           ciudadResidencia: parametros.ciudadResidencia,
-          fechaNacimiento: parametros.fechaNacimiento
+          fechaNacimiento: parametros.fechaNacimiento,
+          idBorrachera: parametros.idBorrachera
         }
 
         Usuario.create(usuarioCrear).exec(function (err, usuarioCreado) {
@@ -46,7 +47,7 @@ module.exports = {
                 });
               }
 
-              res.view('Usuario/ListarUsuario', {
+              res.view('Usuario/listarUsuario', {
                 usuarios: usuariosEncontrados
               });
             })
@@ -112,7 +113,7 @@ module.exports = {
                 }
               });
             }
-            res.view('Usuario/ListarUsuario', {
+            res.view('Usuario/listarUsuario', {
               usuarios: usuariosEncontrados
             });
           })
@@ -178,7 +179,7 @@ module.exports = {
                 });
               }
 
-              res.view('Usuario/ListarUsuario', {
+              res.view('Usuario/listarUsuario', {
                 usuarios: usuariosEncontrados
               });
             })

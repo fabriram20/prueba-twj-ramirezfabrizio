@@ -46,7 +46,7 @@ module.exports = {
                 });
               }
 
-              res.view('Borrachera/ListarBorrachera', {
+              res.view('Borrachera/listarBorrachera', {
                 borracheras: borracherasEncontradas
               });
             })
@@ -112,7 +112,7 @@ module.exports = {
                 }
               });
             }
-            res.view('Borrachera/ListarBorrachera', {
+            res.view('Borrachera/listarBorrachera', {
               borracheras: borracherasEncontradas
             });
           })
@@ -132,6 +132,7 @@ module.exports = {
   actualizarBorrachera: function (req, res) {
 
     var parametros = req.allParams();
+    console.log(parametros);
 
     if (parametros.id && (parametros.motivo || parametros.latitud || parametros.longitud)) {
 
@@ -151,7 +152,7 @@ module.exports = {
         delete borracheraAEditar.longitud
       }
 
-      Usuario.update({
+      Borrachera.update({
         id: parametros.id
       }, borracheraAEditar)
         .exec(function (errorInesperado, BorracheraRemovida) {
@@ -165,7 +166,7 @@ module.exports = {
             });
           }
 
-          Usuario.find()
+          Borrachera.find()
             .exec(function (errorIndefinido, borracherasEncontradas) {
 
               if (errorIndefinido) {
@@ -178,7 +179,7 @@ module.exports = {
                 });
               }
 
-              res.view('Borrachera/ListarBorrachera', {
+              res.view('Borrachera/listarBorrachera', {
                 borracheras: borracherasEncontradas
               });
             })
