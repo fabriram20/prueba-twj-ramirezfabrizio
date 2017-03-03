@@ -26,7 +26,7 @@ module.exports = {
             // Model-> es el nombre de la tabla padre
             model: 'Borrachera',
             // Required es OPCIONAL si no queremos registros huerfanos de raza
-            required: true
+            //required: true
         }
     }
 };

@@ -13,28 +13,23 @@ module.exports = {
 
       var parametros = req.allParams();
 
-      if (parametros.nombres && parametros.apellidos) {
+      if (parametros.nombre && parametros.ciudadResidencia && parametros.fechaNacimiento) {
 
         var usuarioCrear = {
-          nombres: parametros.nombres,
-          apellidos: parametros.apellidos,
-          correo: parametros.correo
-        }
-
-        if (usuarioCrear.correo == "") {
-          delete usuarioCrear.correo
+          nombre: parametros.nombre,
+          ciudadResidencia: parametros.ciudadResidencia,
+          fechaNacimiento: parametros.fechaNacimiento
         }
 
         Usuario.create(usuarioCrear).exec(function (err, usuarioCreado) {
 
           if (err) {
-            return res.view('vistas/Error', {
+            return res.view('error', {
               error: {
                 desripcion: "Fallo al crear el Usuario",
                 rawError: err,
                 url: "/CrearUsuario"
               }
-
             });
           }
 
@@ -42,7 +37,7 @@ module.exports = {
             .exec(function (errorIndefinido, usuariosEncontrados) {
 
               if (errorIndefinido) {
-                res.view('vistas/Error', {
+                res.view('error', {
                   error: {
                     desripcion: "Hubo un problema cargando los Usuarios",
                     rawError: errorIndefinido,
@@ -51,7 +46,7 @@ module.exports = {
                 });
               }
 
-              res.view('vistas/Usuario/ListarUsuarios', {
+              res.view('Usuario/ListarUsuario', {
                 usuarios: usuariosEncontrados
               });
             })
@@ -61,9 +56,9 @@ module.exports = {
 
       } else {
 
-        return res.view('vistas/Error', {
+        return res.view('error', {
           error: {
-            desripcion: "Llena todos los parametros, apellidos y nombres",
+            desripcion: "Llena todos los parametros: nombres, ciudad de Residencia y fecha de Nacimiento",
             rawError: "Fallo en envio de parametros",
             url: "/CrearUsuario"
           }
@@ -75,7 +70,7 @@ module.exports = {
 
     } else {
 
-      return res.view('vistas/Error', {
+      return res.view('Error', {
         error: {
           desripcion: "Error en el uso del Metodo HTTP",
           rawError: "HTTP Invalido",
@@ -87,7 +82,7 @@ module.exports = {
 
   },
 
-  BorrarUsuario: function (req, res) {
+  borrarUsuario: function (req, res) {
 
     var parametros = req.allParams();
 
@@ -97,11 +92,11 @@ module.exports = {
         id: parametros.id
       }).exec(function (errorInesperado, UsuarioRemovido) {
         if (errorInesperado) {
-          return res.view('vistas/Error', {
+          return res.view('error', {
             error: {
               desripcion: "Tuvimos un Error Inesperado",
               rawError: errorInesperado,
-              url: "/ListarUsuarios"
+              url: "/ListarUsuario"
             }
           });
         }
@@ -109,66 +104,63 @@ module.exports = {
           .exec(function (errorIndefinido, usuariosEncontrados) {
 
             if (errorIndefinido) {
-              res.view('vistas/Error', {
+              res.view('error', {
                 error: {
                   desripcion: "Hubo un problema cargando los Usuarios",
                   rawError: errorIndefinido,
-                  url: "/ListarUsuarios"
+                  url: "/ListarUsuario"
                 }
               });
             }
-
-            res.view('vistas/Usuario/ListarUsuarios', {
+            res.view('Usuario/ListarUsuario', {
               usuarios: usuariosEncontrados
             });
           })
       })
 
     } else {
-      return res.view('vistas/Error', {
+      return res.view('error', {
         error: {
           desripcion: "Necesitamos el ID para borrar al Usuario",
           rawError: "No envia ID",
-          url: "/ListarUsuarios"
+          url: "/ListarUsuario"
         }
       });
     }
   },
 
-  editarUsuario: function (req, res) {
+  actualizarUsuario: function (req, res) {
 
     var parametros = req.allParams();
 
-    if (parametros.idUsuario && (parametros.nombres || parametros.apellidos || parametros.correo)) {
+    if (parametros.id && (parametros.nombre || parametros.ciudadResidencia || parametros.fechaNacimiento)) {
 
       var usuarioAEditar = {
-        nombres: parametros.nombres,
-        apellidos: parametros.apellidos,
-        correo: parametros.correo
+        nombre: parametros.nombre,
+        ciudadResidencia: parametros.ciudadResidencia,
+        fechaNacimiento: parametros.fechaNacimiento
       }
 
-      if (usuarioAEditar.nombres == "") {
-        delete usuarioAEditar.nombres
+      if (usuarioAEditar.nombre == "") {
+        delete usuarioAEditar.nombre
       }
-      if (usuarioAEditar.apellidos == "") {
-        delete usuarioAEditar.apellidos
+      if (usuarioAEditar.ciudadResidencia == "") {
+        delete usuarioAEditar.ciudadResidencia
       }
-      if (usuarioAEditar.correo == "") {
-        delete usuarioAEditar.correo
+      if (usuarioAEditar.fechaNacimiento == "") {
+        delete usuarioAEditar.fechaNacimiento
       }
-
-
 
       Usuario.update({
-        id: parametros.idUsuario
+        id: parametros.id
       }, usuarioAEditar)
         .exec(function (errorInesperado, UsuarioRemovido) {
           if (errorInesperado) {
-            return res.view('vistas/Error', {
+            return res.view('error', {
               error: {
                 desripcion: "Tuvimos un Error Inesperado",
                 rawError: errorInesperado,
-                url: "/ListarUsuarios"
+                url: "/ListarUsuario"
               }
             });
           }
@@ -177,40 +169,33 @@ module.exports = {
             .exec(function (errorIndefinido, usuariosEncontrados) {
 
               if (errorIndefinido) {
-                res.view('vistas/Error', {
+                res.view('error', {
                   error: {
                     desripcion: "Hubo un problema cargando los Usuarios",
                     rawError: errorIndefinido,
-                    url: "/ListarUsuarios"
+                    url: "/ListarUsuario"
                   }
                 });
               }
 
-              res.view('vistas/Usuario/ListarUsuarios', {
+              res.view('Usuario/ListarUsuario', {
                 usuarios: usuariosEncontrados
               });
             })
 
         })
 
-
-
-
-
-
     } else {
 
-      return res.view('vistas/Error', {
+      return res.view('error', {
         error: {
           desripcion: "Necesitamos que envies el ID y el nombre, apellido o correo",
           rawError: "No envia Parametros",
-          url: "/ListarUsuarios"
+          url: "/ListarUsuario"
         }
       });
 
     }
-
-
 
   }
 

@@ -48,7 +48,7 @@ module.exports = {
     Borrachera.find()
       .exec(function (errorIndefinido, borracherasEncontradas) {
         if (errorIndefinido) {
-          res.view('Error', {
+          res.view('error', {
             error: {
               desripcion: "Hubo un problema listando las borracheras",
               rawError: errorIndefinido,
@@ -60,5 +60,29 @@ module.exports = {
           borracheras: borracherasEncontradas
         });
       })
+  },
+
+  actualizarUsuarioRuta: function (req, res) {
+
+    var parametros = req.allParams();
+    if (parametros.id) {
+      Usuario.findOne({
+        id: parametros.id
+      }).exec(function (error, usuarioEncontrado) {
+        if (error) return res.serverError()
+        return res.view('Usuario/actualizarUsuario', {
+          title: 'Editar usuario - ' + usuarioEncontrado.nombre,
+          usuario: usuarioEncontrado
+        })
+      });
+
+    } else {
+      return res.view('error', {
+        title: 'Error',
+        error: {
+          descripcion: 'No existe el ID del Usuario'
+        }
+      });
+    }
   }
 };
