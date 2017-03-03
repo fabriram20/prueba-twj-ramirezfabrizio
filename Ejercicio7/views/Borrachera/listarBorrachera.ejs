@@ -1,0 +1,39 @@
+<h1>Lista de Borracheras</h1>
+
+<div class="row">
+  <div class="col-sm-9">
+    <p>Aqui se listan todas las Borracheras del sistema</p>
+  </div>
+  <div class="col-sm-3">
+    <a href="/CrearBorrachera" class="btn btn-block btn-success">
+      Crear Borrachera
+    </a>
+  </div>
+</div>
+<br>
+
+<% for(var i=0; i<borracheras.length; i++) {%>
+<div class="row ma-margen-top-bottom">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <div class="text-center ma-borde ma-padding-top-bottom">
+      <h1> <%= borracheras[i].motivo %></h1>
+    </div>
+  </div>
+  <div class="col-sm-1"></div>
+  <div class="col-sm-5 text-center">
+    <div class="text-center ma-borde" style="margin-top: 40px;">
+      <p>
+        <%= borracheras[i].latitud %>
+      </p>
+      <p>
+        <%= borracheras[i].longitud %>
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-1">
+    <!--<a href="/Usuario/BorrarUsuario?id=<%= usuarios[i].id %>" class="btn btn-danger btn-block">Eliminar</a>-->
+    <!--<a href="/EditarUsuario?id=<%= usuarios[i].id %>" class="btn btn-info btn-block">Editar</a>-->
+  </div>
+</div>
+<% }%>
